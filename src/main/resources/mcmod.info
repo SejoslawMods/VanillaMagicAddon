@@ -1,0 +1,16 @@
+[
+{
+  "modid": "vanillamagicaddon",
+  "name": "Vanilla Magic Addon",
+  "description": "Addon for VanillaMagic mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/Sejoslaw/VanillaMagicAddon",
+  "updateUrl": "",
+  "authorList": ["Seia"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
