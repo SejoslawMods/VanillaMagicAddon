@@ -26,10 +26,10 @@ import seia.vanillamagicaddon.config.VMAConfig;
 @Optional.InterfaceList(value = {
 		@Optional.Interface(iface = "cofh.api.energy.IEnergyReceiver", modid = "CoFHAPI"),
 		@Optional.Interface(iface = "net.darkhax.tesla.api.ITeslaConsumer", modid = "tesla"),
-//		@Optional.Interface(iface = "reborncore.api.power.IEnergyInterfaceTile", modid = "reborncore"),
-//		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = "IC2"),
+		@Optional.Interface(iface = "reborncore.api.power.IEnergyInterfaceTile", modid = "reborncore"),
+		@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = "IC2"),
 //		@Optional.Interface(iface = "blusunrize.immersiveengineering.api.energy.immersiveflux.IFluxReceiver", modid = "immersiveengineering"),
-//		@Optional.Interface(iface = "mekanism.api.energy.IStrictEnergyAcceptor", modid = "mekanism"),
+		@Optional.Interface(iface = "mekanism.api.energy.IStrictEnergyAcceptor", modid = "mekanism")
 //		@Optional.Interface(iface = "szewek.mcflux.api.ex.IEnergy", modid = "mcflux")
 })
 public class TileQuarryBattery extends CustomTileEntityBase implements 
@@ -230,7 +230,7 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 	}
 	
 	//====================================== RebornCore ======================================
-//	
+	
 //	public double getEnergy() 
 //	{
 //		return _quarry.getCurrentTicks() * VMAConfig.ratioIC2;
@@ -240,75 +240,75 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 //	{
 //		_quarry.setCurrentTicks((int) energy);
 //	}
-//	
-//	public double getMaxPower() 
-//	{
-//		return _quarry.getMaxTicks();
-//	}
-//	
-//	public boolean canAddEnergy(double energy) 
-//	{
-//		return _quarry.getCurrentTicks() < _quarry.getMaxTicks();
-//	}
-//	
-//	public double addEnergy(double energy) 
-//	{
-//		int power = (int) (energy / VMAConfig.ratioIC2);
-//		if(canAddEnergy(energy))
-//		{
-//			_quarry.setCurrentTicks(_quarry.getCurrentTicks() + power);
-//			return power * VMAConfig.ratioIC2;
-//		}
-//		return 0;
-//	}
-//	
-//	public double addEnergy(double energy, boolean simulate) 
-//	{
-//		return addEnergy(energy);
-//	}
-//	
-//	public boolean canUseEnergy(double energy) 
-//	{
-//		int power = (int) (energy / VMAConfig.ratioIC2);
-//		return power > _quarry.getCurrentTicks();
-//	}
-//	
-//	public double useEnergy(double energy) 
-//	{
-//		int power = (int) (energy / VMAConfig.ratioIC2);
-//		if(canUseEnergy(energy))
-//		{
-//			_quarry.setCurrentTicks(_quarry.getCurrentTicks() - power);
-//			return energy;
-//		}
-//		return 0;
-//	}
-//	
-//	public double useEnergy(double energy, boolean simulate) 
-//	{
-//		return useEnergy(energy);
-//	}
-//	
-//	public boolean canAcceptEnergy(EnumFacing direction) 
-//	{
-//		return true;
-//	}
-//	
-//	public boolean canProvideEnergy(EnumFacing direction) 
-//	{
-//		return false;
-//	}
-//	
-//	public double getMaxOutput() 
-//	{
-//		return -1;
-//	}
-//	
-//	public double getMaxInput() 
-//	{
-//		return _quarry.getOneOperationCost() * VMAConfig.ratioIC2;
-//	}
-//	
+	
+	public double getMaxPower() 
+	{
+		return _quarry.getMaxTicks();
+	}
+	
+	public boolean canAddEnergy(double energy) 
+	{
+		return _quarry.getCurrentTicks() < _quarry.getMaxTicks();
+	}
+	
+	public double addEnergy(double energy) 
+	{
+		int power = (int) (energy / VMAConfig.ratioIC2);
+		if(canAddEnergy(energy))
+		{
+			_quarry.setCurrentTicks(_quarry.getCurrentTicks() + power);
+			return power * VMAConfig.ratioIC2;
+		}
+		return 0;
+	}
+	
+	public double addEnergy(double energy, boolean simulate) 
+	{
+		return addEnergy(energy);
+	}
+	
+	public boolean canUseEnergy(double energy) 
+	{
+		int power = (int) (energy / VMAConfig.ratioIC2);
+		return power > _quarry.getCurrentTicks();
+	}
+	
+	public double useEnergy(double energy) 
+	{
+		int power = (int) (energy / VMAConfig.ratioIC2);
+		if(canUseEnergy(energy))
+		{
+			_quarry.setCurrentTicks(_quarry.getCurrentTicks() - power);
+			return energy;
+		}
+		return 0;
+	}
+	
+	public double useEnergy(double energy, boolean simulate) 
+	{
+		return useEnergy(energy);
+	}
+	
+	public boolean canAcceptEnergy(EnumFacing direction) 
+	{
+		return true;
+	}
+	
+	public boolean canProvideEnergy(EnumFacing direction) 
+	{
+		return false;
+	}
+	
+	public double getMaxOutput() 
+	{
+		return -1;
+	}
+	
+	public double getMaxInput() 
+	{
+		return _quarry.getOneOperationCost() * VMAConfig.ratioIC2;
+	}
+	
 //	public EnumPowerTier getTier() 
 //	{
 //		return EnumPowerTier.INFINITE;
@@ -383,20 +383,20 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 		return _quarry.getMaxTicks() * VMAConfig.ratioMekanism;
 	}
 	
-//	public boolean canReceiveEnergy(EnumFacing face) 
-//	{
-//		return true;
-//	}
-//	
-//	public double transferEnergyToAcceptor(EnumFacing face, double amount) 
-//	{
-//		if(canAddEnergy(amount))
-//		{
-//			addEnergy(amount);
-//			return 0;
-//		}
-//		return amount;
-//	}
+	public boolean canReceiveEnergy(EnumFacing face) 
+	{
+		return true;
+	}
+	
+	public double transferEnergyToAcceptor(EnumFacing face, double amount) 
+	{
+		if(canAddEnergy(amount))
+		{
+			addEnergy(amount);
+			return 0;
+		}
+		return amount;
+	}
 	
 	//====================================== MinecraftFlux ======================================
 	
