@@ -9,7 +9,7 @@ import seia.vanillamagic.api.tileentity.ICustomTileEntity;
 public interface IBlockAbsorber extends ICustomTileEntity
 {
 	/** 
-	 * Returns Hopper to which Block Absorber will export items.
+	 * @return Returns Hopper to which Block Absorber will export items.
 	 */
 	TileEntityHopper getConnectedHopper();
 }

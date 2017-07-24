@@ -29,6 +29,9 @@ public class EventPlayerUseCauldron extends EventPlayerOnWorld
 		return _cauldronPos;
 	}
 	
+	/**
+	 * This Event is fired when Player use Cauldron with some kind of input inside in Cauldron.
+	 */
 	public static class FromInput extends EventPlayerUseCauldron
 	{
 		private final List<EntityItem> _input;

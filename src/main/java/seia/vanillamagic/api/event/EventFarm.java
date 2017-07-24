@@ -4,6 +4,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import seia.vanillamagic.api.tileentity.machine.IFarm;
 
+/**
+ * Event connected with TileFarm.
+ */
 public class EventFarm extends EventMachine 
 {
 	private final IFarm _tileFarm;

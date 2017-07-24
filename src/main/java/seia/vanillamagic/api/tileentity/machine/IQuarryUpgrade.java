@@ -22,19 +22,19 @@ import net.minecraft.world.IBlockAccess;
 public interface IQuarryUpgrade
 {
 	/**
-	 * Readable upgrade name like: "My upgrade" or "Silk-Touch".
+	 * @return Returns readable upgrade name like: "My upgrade" or "Silk-Touch".
 	 */
 	public String getUpgradeName();
 	
 	/**
-	 * Returns the Block to which this upgrade is connected. <br>
+	 * @return Returns the Block to which this upgrade is connected. <br>
 	 * <br>
 	 * Each upgrade MUST HAVE a different block !!!
 	 */
 	public Block getBlock();
 	
 	/**
-	 * Returns the list of the stacks which will be dropped from the given "blockToDig". <br>
+	 * @return Returns the list of the stacks which will be dropped from the given "blockToDig". <br>
 	 * Here is where You should do Your stuff like silk-touch, fortune, etc.
 	 */
 	default public List<ItemStack> getDrops(Block blockToDig, IBlockAccess world, 
@@ -120,7 +120,7 @@ public class DoSomethingWhenMyUpgradeIsRegistered
 {
 	...
 	@SubscribeEvent
-	public void addQuarryTileBattery(EventQuarry.AddUpgrade event) // Event which is fired when Quarry check block if it is an upgrade
+	public void eventFunction(EventQuarry.AddUpgrade event) // Event which is fired when Quarry check block if it is an upgrade
 	{
 		IQuarryUpgrade myUpgrade = QuarryUpgradeAPI.getUpgradeFromBlock(MyBlocks.MY_BLOCK); // Get upgrade for Your block.
 		IQuarryUpgrade eventUpgrade = event.getUpgrade(); // Get upgrade from event

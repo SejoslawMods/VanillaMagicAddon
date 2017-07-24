@@ -31,14 +31,8 @@ public class InventoryWrapper implements IInventoryWrapper
 		this._state = world.getBlockState(position);
 		
 		TileEntity tile = world.getTileEntity(position);
-		if(tile instanceof IInventory)
-		{
-			this._inventory = (IInventory) tile;
-		}
-		else
-		{
-			throw new NotInventoryException(world, position);
-		}
+		if (tile instanceof IInventory) this._inventory = (IInventory) tile;
+		else throw new NotInventoryException(world, position);
 	}
 	
 	public IInventory getInventory() 

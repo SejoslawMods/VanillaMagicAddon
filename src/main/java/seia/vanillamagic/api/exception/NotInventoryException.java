@@ -13,6 +13,8 @@ import seia.vanillamagic.api.inventory.IInventoryWrapper;
  */
 public class NotInventoryException extends Exception
 {
+	private static final long serialVersionUID = 2586710499803361489L;
+
 	/**
 	 * {@link World} on which the {@link IInventory} should be.
 	 */

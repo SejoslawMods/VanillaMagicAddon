@@ -17,6 +17,9 @@ public class EventSpeedy extends EventCustomTileEntity
 		this._tileSpeedy = tileSpeedy;
 	}
 	
+	/**
+	 * @return Returns TileSpeedy connected with this Event.
+	 */
 	public ISpeedy getTileSpeedy()
 	{
 		return _tileSpeedy;

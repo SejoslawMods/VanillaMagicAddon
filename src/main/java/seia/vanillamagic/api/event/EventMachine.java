@@ -18,6 +18,9 @@ public class EventMachine extends EventCustomTileEntity
 		this._tileMachine = tileMachine;
 	}
 	
+	/**
+	 * @return Returns Machine connected with this Event.
+	 */
 	public IMachine getTileMachine()
 	{
 		return _tileMachine;

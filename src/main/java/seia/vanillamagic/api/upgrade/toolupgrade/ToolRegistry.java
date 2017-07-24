@@ -37,16 +37,10 @@ public class ToolRegistry
 		
 		public int compareTo(ItemEntry ie) 
 		{
-			if(ItemStack.areItemsEqualIgnoreDurability(toolIn, ie.toolIn))
-			{
-				if(ItemStack.areItemsEqualIgnoreDurability(ingredient, ie.ingredient))
-				{
-					if(ItemStack.areItemsEqualIgnoreDurability(toolOut, ie.toolOut))
-					{
+			if (ItemStack.areItemsEqualIgnoreDurability(toolIn, ie.toolIn))
+				if (ItemStack.areItemsEqualIgnoreDurability(ingredient, ie.ingredient))
+					if (ItemStack.areItemsEqualIgnoreDurability(toolOut, ie.toolOut)) 
 						return 0;
-					}
-				}
-			}
 			return -1;
 		}
 		
@@ -135,9 +129,9 @@ public class ToolRegistry
 	public static void add(ItemStack toolIn, ItemStack ingredient, ItemStack toolOut)
 	{
 		ItemEntry ie = new ItemEntry(toolIn, ingredient, toolOut);
-		for(ItemEntry entry : _ENTRYS)
+		for (ItemEntry entry : _ENTRYS)
 		{
-			if(ie.compareTo(entry) == 0)
+			if (ie.compareTo(entry) == 0)
 			{
 				VanillaMagicAPI.LOGGER.log(Level.ERROR, "Entry exists: " + ie.toString());
 				return;
@@ -188,13 +182,9 @@ public class ToolRegistry
 	@Nullable
 	public static ItemStack getIngredient(ItemStack baseTool)
 	{
-		for(ItemEntry ie : _ENTRYS)
-		{
-			if(ItemStack.areItemsEqualIgnoreDurability(baseTool, ie.toolIn))
-			{
+		for (ItemEntry ie : _ENTRYS)
+			if (ItemStack.areItemsEqualIgnoreDurability(baseTool, ie.toolIn))
 				return ie.ingredient;
-			}
-		}
 		return null;
 	}
 	
@@ -206,16 +196,10 @@ public class ToolRegistry
 	@Nullable
 	public static ItemStack getResult(ItemStack baseTool, ItemStack ingredient)
 	{
-		for(ItemEntry ie : _ENTRYS)
-		{
-			if(ItemStack.areItemsEqualIgnoreDurability(baseTool, ie.toolIn))
-			{
-				if(ItemStack.areItemsEqualIgnoreDurability(ingredient, ie.ingredient))
-				{
+		for (ItemEntry ie : _ENTRYS)
+			if (ItemStack.areItemsEqualIgnoreDurability(baseTool, ie.toolIn))
+				if (ItemStack.areItemsEqualIgnoreDurability(ingredient, ie.ingredient))
 					return ie.toolOut;
-				}
-			}
-		}
 		return null;
 	}
 }

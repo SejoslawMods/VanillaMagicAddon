@@ -91,6 +91,9 @@ public class EventQuarry extends EventMachine
 		}
 	}
 	
+	/**
+	 * This Event is fired when Quarry should be modified by the QuarryUpgrade.
+	 */
 	public static class ModifyQuarry extends QuarryUpgrade
 	{
 		public ModifyQuarry(IQuarry tileQuarry, World world, BlockPos customTilePos, IQuarryUpgrade upgrade, BlockPos upgradePos) 

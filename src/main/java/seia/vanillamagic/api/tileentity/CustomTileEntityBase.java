@@ -10,6 +10,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 
+/**
+ * Basic implementation of {@link ICustomTileEntity}
+ */
 public abstract class CustomTileEntityBase extends TileEntity implements ICustomTileEntity
 {
 	protected Ticket chunkTicket;
@@ -31,9 +34,12 @@ public abstract class CustomTileEntityBase extends TileEntity implements ICustom
 		stopChunkLoading();
 	}
 	
+	/**
+	 * Stop chunkloading current CustomTileEntity
+	 */
 	public void stopChunkLoading() 
 	{
-		if(this.chunkTicket != null) 
+		if (this.chunkTicket != null) 
 		{
 			ForgeChunkManager.releaseTicket(this.chunkTicket);
 			this.chunkTicket = null;
@@ -42,10 +48,7 @@ public abstract class CustomTileEntityBase extends TileEntity implements ICustom
 	
 	public void forceChunkLoading(Ticket ticket)
 	{
-		if(chunkTicket == null)
-		{
-			chunkTicket = ticket;
-		}
+		if (chunkTicket == null) chunkTicket = ticket;
 		ChunkPos tilePos = new ChunkPos(pos.getX() >> 4, pos.getZ() >> 4);
 		ForgeChunkManager.forceChunk(ticket, tilePos);
 	}

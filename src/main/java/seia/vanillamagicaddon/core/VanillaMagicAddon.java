@@ -42,6 +42,7 @@ public class VanillaMagicAddon
 		LOGGER = event.getModLog();
 		VMAConfig.preInit(event);
 		METADATA = VanillaMagicAddonMetadata.preInit(METADATA);
+		
 		MinecraftForge.EVENT_BUS.register(new AddTileQuarryBattery());
 		GameRegistry.registerTileEntity(TileQuarryBattery.class, TileQuarryBattery.REGISTRY_NAME);
 	}
@@ -53,7 +54,7 @@ public class VanillaMagicAddon
 		{
 			QuarryUpgradeAPI.addUpgrade(QuarryUpgradePower.class);
 		} 
-		catch(MappingExistsException e) 
+		catch (MappingExistsException e) 
 		{
 			e.printStackTrace();
 		}

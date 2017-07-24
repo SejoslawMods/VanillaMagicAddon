@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import seia.vanillamagic.api.util.VectorWrapper.Vector3D;
 
 /**
  * Base Spell definition.
@@ -43,16 +43,18 @@ public interface ISpell
 	 * @param pos Position on which the Spell was casted.
 	 * @param face Face of the casted block.
 	 * @param hitVec Vector from Player to the Block.
+	 * 
 	 * @return Returns TRUE if the Spell was casted correctly.
 	 */
 	boolean castSpell(
 			EntityPlayer caster, 
 			@Nullable BlockPos pos, 
 			@Nullable EnumFacing face, 
-			@Nullable Vec3d hitVec);
+			@Nullable Vector3D hitVec);
 	
 	/**
 	 * @param stackOffHand ItemStack in the Player's OffHand.
+	 * 
 	 * @return Returns TRUE if the stackOffHand is the same as required ItemStack.
 	 */
 	boolean isItemOffHandRightForSpell(ItemStack stackOffHand);

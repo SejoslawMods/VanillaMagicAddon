@@ -12,6 +12,9 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import seia.vanillamagic.api.item.IEnchantedBucket;
 
+/**
+ * Event connected with Enchanted Bucket.
+ */
 public class EventEnchantedBucket extends EventCustomItem.OnUseByPlayer.OnTileEntity
 {
 	private final IEnchantedBucket _bucket;
@@ -43,6 +46,9 @@ public class EventEnchantedBucket extends EventCustomItem.OnUseByPlayer.OnTileEn
 		return _fluidStack;
 	}
 	
+	/**
+	 * This Event is fired when Player used Enchanted Bucket to fill Fluid Handler.
+	 */
 	public static class FillFluidHandler extends EventEnchantedBucket 
 	{
 		private final IFluidHandler _handler;
@@ -75,6 +81,9 @@ public class EventEnchantedBucket extends EventCustomItem.OnUseByPlayer.OnTileEn
 		}
 	}
 	
+	/**
+	 * This Event is fired when Player used Enchanted Bucket to fill Fluid Tank.
+	 */
 	public static class FillFluidTank extends EventEnchantedBucket 
 	{
 		private final IFluidTank _fluidTank;
@@ -95,6 +104,9 @@ public class EventEnchantedBucket extends EventCustomItem.OnUseByPlayer.OnTileEn
 		}
 	}
 	
+	/**
+	 * This Event is fired when Player used Enchanted Bucket to fill Cauldron.
+	 */
 	public static class FillCauldron extends EventEnchantedBucket
 	{
 		public FillCauldron(IEnchantedBucket bucket, EntityPlayer player, World world, BlockPos blockPos) 
@@ -103,6 +115,9 @@ public class EventEnchantedBucket extends EventCustomItem.OnUseByPlayer.OnTileEn
 		}
 	}
 	
+	/**
+	 * This Event is fired when Player used Enchanted Bucket to spawn liquid.
+	 */
 	public static class SpawnLiquid extends EventEnchantedBucket
 	{
 		public SpawnLiquid(IEnchantedBucket bucket, EntityPlayer player, World world, BlockPos blockPos) 

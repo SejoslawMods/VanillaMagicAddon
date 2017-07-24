@@ -9,6 +9,7 @@ import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
 import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
+import ic2.api.energy.tile.IEnergySource;
 import mekanism.api.energy.IStrictEnergyStorage;
 import net.darkhax.tesla.api.ITeslaConsumer;
 import net.darkhax.tesla.api.ITeslaProducer;
@@ -35,7 +36,7 @@ import seia.vanillamagicaddon.config.VMAConfig;
 public class TileQuarryBattery extends CustomTileEntityBase implements 
 				IEnergyReceiver, ITeslaConsumer, net.minecraftforge.energy.IEnergyStorage, 
 				IEnergyHandler, IStrictEnergyStorage, IEnergySink
-				//IEnergyInterfaceTile
+//				IEnergyInterfaceTile
 {
 	public static final String REGISTRY_NAME = TileQuarryBattery.class.getName();
 	
@@ -52,58 +53,56 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 		list.add("1 Quarry tick = " + 
 				VMAConfig.ratioRF + " RF = " + 
 				VMAConfig.ratioTesla + " Tesla = " + 
-//				VMAConfig.ratioIC2 + " EU = " + 
+				VMAConfig.ratioIC2 + " EU = " + 
 				VMAConfig.ratioMekanism + " Mekanism Joules");
 		return list;
 	}
 	
 	public int addPower(int received, boolean simulated)
 	{
-		if(_quarry.getMaxTicks() < _quarry.getCurrentTicks())
-		{
-			return 0;
-		}
+		if (_quarry.getMaxTicks() < _quarry.getCurrentTicks()) return 0;
+		
 		_quarry.setCurrentTicks(_quarry.getCurrentTicks() + received);
 		return received;
 	}
 	
 	public void update()
 	{
-		if(_quarry.getCurrentTicks() < _quarry.getMaxTicks()) // We can get more power
+		if (_quarry.getCurrentTicks() < _quarry.getMaxTicks()) // We can get more power
 		{
-			for(EnumFacing face : EnumFacing.values()) // Try to take power from each side of the block
+			for (EnumFacing face : EnumFacing.values()) // Try to take power from each side of the block
 			{
 				BlockPos powerSourcePos = this.getPos().offset(face);
 				TileEntity powerSourceTile = world.getTileEntity(powerSourcePos);
 				face = face.getOpposite();
-				if(powerSourceTile != null) // If there is a TileEntity on the checking position
+				if (powerSourceTile != null) // If there is a TileEntity on the checking position
 				{
-					if(powerSourceTile instanceof IEnergyProvider) // RedstoneFlux-API
+					if (powerSourceTile instanceof IEnergyProvider) // RedstoneFlux-API
 					{
 						IEnergyProvider iep = (IEnergyProvider) powerSourceTile;
 						addPower(iep.extractEnergy(face, _quarry.getOneOperationCost() * VMAConfig.quarryOperations * VMAConfig.ratioRF, false) / VMAConfig.ratioRF, false);
 					}
-					if(powerSourceTile instanceof cofh.api.energy.IEnergyStorage) // RedstoneFlux-API
+					if (powerSourceTile instanceof cofh.api.energy.IEnergyStorage) // RedstoneFlux-API
 					{
 						cofh.api.energy.IEnergyStorage storage = (cofh.api.energy.IEnergyStorage) powerSourceTile;
 						addPower(storage.extractEnergy(_quarry.getOneOperationCost() * VMAConfig.quarryOperations * VMAConfig.ratioRF, false) / VMAConfig.ratioRF, false);
 					}
-					if(powerSourceTile.hasCapability(CapabilityEnergy.ENERGY, face)) // Forge Capability Energy
+					if (powerSourceTile.hasCapability(CapabilityEnergy.ENERGY, face)) // Forge Capability Energy
 					{
 						net.minecraftforge.energy.IEnergyStorage storage = (net.minecraftforge.energy.IEnergyStorage) powerSourceTile.getCapability(CapabilityEnergy.ENERGY, face);
 						addPower(storage.extractEnergy(_quarry.getOneOperationCost() * VMAConfig.quarryOperations * VMAConfig.ratioRF, false) / VMAConfig.ratioRF, false);
 					}
-					if(powerSourceTile.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, face)) // Tesla API
+					if (powerSourceTile.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, face)) // Tesla API
 					{
 						ITeslaProducer producer = (ITeslaProducer) powerSourceTile.getCapability(TeslaCapabilities.CAPABILITY_PRODUCER, face);
 						addPower((int) producer.takePower(_quarry.getOneOperationCost() * VMAConfig.quarryOperations * VMAConfig.ratioTesla, false), false);
 					}
-//					if(powerSourceTile instanceof IEnergy) // MinecraftFlux
+//					if (powerSourceTile instanceof IEnergy) // MinecraftFlux
 //					{
 //						IEnergy energy = (IEnergy) powerSourceTile;
 //						addPower((int) energy.outputEnergy(_quarry.getOneOperationCost() * VMAConfig.quarryOperations * VMAConfig.ratioRF, false), false);
 //					}
-//					if(powerSourceTile instanceof IEnergyInterfaceTile) // RebornCore
+//					if (powerSourceTile instanceof IEnergyInterfaceTile) // RebornCore
 //					{
 //						IEnergyInterfaceTile ieit = (IEnergyInterfaceTile) powerSourceTile;
 //						if(ieit.canProvideEnergy(face))
@@ -111,22 +110,23 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 //							addPower((int) ieit.useEnergy(getMaxInput()), false);
 //						}
 //					}
-					if(powerSourceTile instanceof IEnergyEmitter) // IC2
+					if (powerSourceTile instanceof IEnergySource) // IC2
 					{
-						IEnergyEmitter emitter = (IEnergyEmitter) powerSourceTile;
-						emitter.emitsEnergyTo(this, face);
+						IEnergySource source = (IEnergySource) powerSourceTile;
+						source.drawEnergy(_quarry.getOneOperationCost() * VMAConfig.quarryOperations * VMAConfig.ratioIC2);
+						addPower((int) source.getOfferedEnergy(), false);
 					}
-//					if(powerSourceTile instanceof IFluxProvider) // ImmersiveEngineering
+//					if (powerSourceTile instanceof IFluxProvider) // ImmersiveEngineering
 //					{
 //						IFluxProvider ifp = (IFluxProvider) powerSourceTile;
 //						addPower(ifp.extractEnergy(face, _quarry.getOneOperationCost() * VMAConfig.quarryOperations * VMAConfig.ratioRF, false) / VMAConfig.ratioRF, false);
 //					}
-//					if(powerSourceTile instanceof IFluxStorage) // ImmersiveEngineering
+//					if (powerSourceTile instanceof IFluxStorage) // ImmersiveEngineering
 //					{
 //						IFluxStorage storage = (IFluxStorage) powerSourceTile;
 //						addPower(storage.extractEnergy(_quarry.getOneOperationCost() * VMAConfig.quarryOperations * VMAConfig.ratioRF, false) / VMAConfig.ratioRF, false);
 //					}
-					if(powerSourceTile instanceof IStrictEnergyStorage) // Mekanism
+					if (powerSourceTile instanceof IStrictEnergyStorage) // Mekanism
 					{
 						IStrictEnergyStorage storage = (IStrictEnergyStorage) powerSourceTile;
 						double takenEnergy = storage.getEnergy() * VMAConfig.ratioMekanism;
@@ -183,38 +183,33 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 	
 	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing)
 	{
-		if(capability == CapabilityEnergy.ENERGY) // Forge Energy
-		{
-			return (T) this;
-		}
-		else if(capability == TeslaCapabilities.CAPABILITY_CONSUMER) // TeslaAPI
-		{
-			return (T) this;
-		}
+		if (capability == CapabilityEnergy.ENERGY) return (T) this; // Forge Energy
+		else if(capability == TeslaCapabilities.CAPABILITY_CONSUMER) return (T) this; // TeslaAPI
+		
 		return super.getCapability(capability, facing);
 	}
 	
 	//====================================== RedstoneFlux API ======================================
 	
-	@Optional.Method(modid = "CoFHAPI")
+//	@Optional.Method(modid = "CoFHAPI")
 	public int getEnergyStored(EnumFacing face) 
 	{
 		return _quarry.getCurrentTicks() * VMAConfig.ratioRF;
 	}
 	
-	@Optional.Method(modid = "CoFHAPI")
+//	@Optional.Method(modid = "CoFHAPI")
 	public int getMaxEnergyStored(EnumFacing face) 
 	{
 		return _quarry.getMaxTicks() * VMAConfig.ratioRF;
 	}
 	
-	@Optional.Method(modid = "CoFHAPI")
+//	@Optional.Method(modid = "CoFHAPI")
 	public boolean canConnectEnergy(EnumFacing face) 
 	{
 		return true;
 	}
 	
-	@Optional.Method(modid = "CoFHAPI")
+//	@Optional.Method(modid = "CoFHAPI")
 	public int receiveEnergy(EnumFacing face, int maxReceive, boolean simulate) 
 	{
 		return addPower(maxReceive / VMAConfig.ratioRF, simulate);
@@ -222,7 +217,7 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 	
 	//====================================== Tesla API ======================================
 	
-	@Optional.Method(modid = "tesla")
+//	@Optional.Method(modid = "tesla")
 	public long givePower(long power, boolean simulated) 
 	{
 		int receive = (int) (Math.min(power, Integer.MAX_VALUE) / VMAConfig.ratioTesla);
@@ -254,7 +249,7 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 	public double addEnergy(double energy) 
 	{
 		int power = (int) (energy / VMAConfig.ratioIC2);
-		if(canAddEnergy(energy))
+		if (canAddEnergy(energy))
 		{
 			_quarry.setCurrentTicks(_quarry.getCurrentTicks() + power);
 			return power * VMAConfig.ratioIC2;
@@ -276,7 +271,7 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 	public double useEnergy(double energy) 
 	{
 		int power = (int) (energy / VMAConfig.ratioIC2);
-		if(canUseEnergy(energy))
+		if (canUseEnergy(energy))
 		{
 			_quarry.setCurrentTicks(_quarry.getCurrentTicks() - power);
 			return energy;
@@ -336,7 +331,7 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 		if(_quarry.getCurrentTicks() < _quarry.getMaxTicks())
 		{
 			addPower((int) (amount / VMAConfig.ratioIC2), false);
-			return 0;
+			return amount;
 		}
 		return amount;
 	}
@@ -390,7 +385,7 @@ public class TileQuarryBattery extends CustomTileEntityBase implements
 	
 	public double transferEnergyToAcceptor(EnumFacing face, double amount) 
 	{
-		if(canAddEnergy(amount))
+		if (canAddEnergy(amount))
 		{
 			addEnergy(amount);
 			return 0;

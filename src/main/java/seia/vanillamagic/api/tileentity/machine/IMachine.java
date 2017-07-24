@@ -18,19 +18,19 @@ import seia.vanillamagic.api.tileentity.ICustomTileEntity;
 public interface IMachine extends ICustomTileEntity
 {	
 	/**
-	 * Get the actual position of the machine block.
+	 * @return Returns the actual position of the machine block.
 	 * By MachinePosition we understand the core of the Machine.
 	 * In Vanilla Magic it usually will return Cauldron position.
 	 */
 	BlockPos getMachinePos();
 	
 	/**
-	 * Returns the state of this Machine.
+	 * @return Returns the state of this Machine.
 	 */
 	IBlockState getMachineState();
 	
 	/**
-	 * Returns the Machine block.
+	 * @return Returns the Machine block.
 	 */
 	Block getMachineBlock();
 	
@@ -40,7 +40,7 @@ public interface IMachine extends ICustomTileEntity
 	void setMachinePos(BlockPos newPos);
 	
 	/**
-	 * Get the current Machine working position.
+	 * @return Returns the current Machine working position.
 	 * In Quarry it's a digging position.
 	 * It should return the position on which Machine is performing work.
 	 */
@@ -53,7 +53,7 @@ public interface IMachine extends ICustomTileEntity
 	void setWorkingPos(BlockPos newPos);
 	
 	/**
-	 * Returns the starting position at which the Machine will start to operate. 
+	 * @return Returns the starting position at which the Machine will start to operate. 
 	 */
 	BlockPos getStartPos();
 	
@@ -64,7 +64,7 @@ public interface IMachine extends ICustomTileEntity
 	void setNewStartPos(BlockPos newStartPos);
 	
 	/**
-	 * Get the Machine work radius (in blocks).
+	 * @return Returns the Machine work radius (in blocks).
 	 */
 	int getWorkRadius();
 	
@@ -74,7 +74,7 @@ public interface IMachine extends ICustomTileEntity
 	void setWorkRadius(int newRadius);
 	
 	/**
-	 * It will return the cost of performing one operation.
+	 * @return Returns the cost of performing one operation.
 	 */
 	int getOneOperationCost();
 	
@@ -82,7 +82,8 @@ public interface IMachine extends ICustomTileEntity
 	 * Each Machine uses ticks.
 	 * Ticks works like Furnace smelting ticks.
 	 * For instance Coal as fuel will return 1600 ticks.
-	 * It will return the current ticks in machine.
+	 * 
+	 * @return Returns the current ticks in machine.
 	 * Dividing this by getOneOperationCost() will give You the amount of operations the Machine
 	 * can handle.
 	 */
@@ -97,7 +98,7 @@ public interface IMachine extends ICustomTileEntity
 	void setCurrentTicks(int ticks);
 	
 	/**
-	 * It should return the max number of ticks that Machine can contain.
+	 * @return Returns the max number of ticks that Machine can contain.
 	 * It's efficient to make it: 10 * getOneOperationCost().
 	 * If that made, the Machine won't use the infinite amount of resources.
 	 */
@@ -114,12 +115,12 @@ public interface IMachine extends ICustomTileEntity
 	void endWork();
 	
 	/**
-	 * Method to determine if a Machine has finished work.
+	 * @return Returns if a Machine has finished work.
 	 */
 	boolean finishedWork();
 	
 	/**
-	 * What Player should hold in left hand (off hand) to activate this Machine.
+	 * @return Returns what Player should hold in left hand (off hand) to activate this Machine.
 	 * This usually should be set in Quest.
 	 */
 	@Nullable
@@ -131,7 +132,7 @@ public interface IMachine extends ICustomTileEntity
 	void setActivationStackLeftHand(ItemStack stack);
 	
 	/**
-	 * What Player should hold in right hand (main hand) to activate this Machine.
+	 * @return Returns what Player should hold in right hand (main hand) to activate this Machine.
 	 * This usually should be set in Quest.
 	 */
 	@Nullable
@@ -148,7 +149,7 @@ public interface IMachine extends ICustomTileEntity
 	boolean isActive();
 	
 	/**
-	 * Returns the inventory from which Machine can take resources to work (fuel, etc.).
+	 * @return Returns the inventory from which Machine can take resources to work (fuel, etc.).
 	 */
 	@Nullable
 	IInventoryWrapper getInputInventory();
@@ -159,7 +160,7 @@ public interface IMachine extends ICustomTileEntity
 	void setInputInventory(IInventoryWrapper inv);
 	
 	/**
-	 * Returns the inventory to which Machine should output.
+	 * @return Returns the inventory to which Machine should output.
 	 */
 	@Nullable
 	IInventoryWrapper getOutputInventory();
@@ -170,36 +171,36 @@ public interface IMachine extends ICustomTileEntity
 	void setOutputInventory(IInventoryWrapper inv);
 	
 	/**
-	 * This method is used to check if the output inventory has space for more items.
+	 * @return Returns if the output inventory has space for more items.
 	 */
 	EnumFacing getOutputFacing();
 	
 	//=========================== NEIGHBOR =====================================================
 	
 	/**
-	 * Get neighbor TileEntity at given face.
+	 * @return Returns the neighbor TileEntity at given face.
 	 */
 	@Nullable
 	TileEntity getNeighborTile(EnumFacing face);
 	
 	/**
-	 * Get the Machine that is next to this Machine.
+	 * @return Returns the Machine that is next to this Machine.
 	 */
 	@Nullable
 	IMachine getNeighborMachine(EnumFacing face);
 	
 	/**
-	 * Returns the neighbor position.
+	 * @return Returns the neighbor position.
 	 */
 	BlockPos getNeighborPos(EnumFacing face);
 	
 	/**
-	 * Returns the state of the neighbor block.
+	 * @return Returns the state of the neighbor block.
 	 */
 	IBlockState getNeighborState(EnumFacing face);
 	
 	/**
-	 * Returns the neighbor block.
+	 * @return Returns the neighbor block.
 	 */
 	Block getNeighborBlock(EnumFacing face);
 }

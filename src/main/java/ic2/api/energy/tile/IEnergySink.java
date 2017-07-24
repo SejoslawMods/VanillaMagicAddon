@@ -7,7 +7,7 @@ import net.minecraft.util.EnumFacing;
  * 
  * See ic2/api/energy/usage.txt for an overall description of the energy net api.
  */
-public interface IEnergySink extends IEnergyAcceptor {
+public interface IEnergySink extends IEnergyAcceptor { // Machines
 	/**
 	 * Determine how much energy the sink accepts.
 	 *

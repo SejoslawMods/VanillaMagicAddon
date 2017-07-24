@@ -16,13 +16,13 @@ import seia.vanillamagic.api.tileentity.ICustomTileEntity;
 public interface IInventoryBridge extends ICustomTileEntity
 {
 	/**
-	 * Returns the wrapper which contains information about the input Inventory.
+	 * @return Returns the wrapper which contains information about the input Inventory.
 	 */
 	@Nullable
 	public IInventoryWrapper getInputInventory();
 	
 	/**
-	 * Returns the wrapper which contains information about the output / bottom Inventory.
+	 * @return Returns the wrapper which contains information about the output / bottom Inventory.
 	 */
 	@Nullable
 	public IInventoryWrapper getOutputInventory();

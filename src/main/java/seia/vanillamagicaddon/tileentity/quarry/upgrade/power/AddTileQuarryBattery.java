@@ -19,11 +19,11 @@ public class AddTileQuarryBattery
 	{
 		IQuarryUpgrade powerUpgrade = QuarryUpgradeAPI.getUpgradeFromBlock(Blocks.REDSTONE_LAMP);
 		IQuarryUpgrade eventUpgrade = event.getUpgrade();
-		if(QuarryUpgradeAPI.isTheSameUpgrade(powerUpgrade, eventUpgrade)) // QuarryUpgradeHelper added Power Upgrade
+		if (QuarryUpgradeAPI.isTheSameUpgrade(powerUpgrade, eventUpgrade)) // QuarryUpgradeHelper added Power Upgrade
 		{
 			World world = event.getWorld();
 			BlockPos powerUpgradePos = event.getUpgradePos();
-			if(world.getTileEntity(powerUpgradePos) == null) // This should always be NULL
+			if (world.getTileEntity(powerUpgradePos) == null) // This should always be NULL
 			{
 				TileQuarryBattery tile = new TileQuarryBattery();
 				tile.init(world, powerUpgradePos);
@@ -38,7 +38,7 @@ public class AddTileQuarryBattery
 	{
 		IBlockState state = event.getState();
 		Block block = state.getBlock();
-		if(Block.isEqualTo(block, Blocks.REDSTONE_LAMP) || Block.isEqualTo(block, Blocks.LIT_REDSTONE_LAMP))
+		if (Block.isEqualTo(block, Blocks.REDSTONE_LAMP) || Block.isEqualTo(block, Blocks.LIT_REDSTONE_LAMP))
 		{
 			World world = event.getWorld();
 			CustomTileEntityHandlerAPI.removeCustomTileEntityAtPos(world, event.getPos());

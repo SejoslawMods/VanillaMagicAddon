@@ -8,6 +8,8 @@ import java.util.Map;
  */
 public class MappingExistsException extends Exception 
 {
+	private static final long serialVersionUID = 2055809553332117997L;
+
 	/**
 	 * Key which is already used in {@link Map}
 	 */

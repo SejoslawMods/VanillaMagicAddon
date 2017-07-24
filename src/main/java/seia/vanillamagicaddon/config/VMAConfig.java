@@ -38,10 +38,8 @@ public class VMAConfig
 				1, 
 				Integer.MAX_VALUE, 
 				"Ratio 1 VM tick to 1 RF. It is basically how many RF is one VM tick. If for instance ratioRF = 3, than 1 VM tick = 3 RF (use mainly in Quarry). Also this value is taken if used in ForgeCapabilityEnergy, ImmersiveEngineering, and MinecraftFlux.");
-		if(ratioRF < 1)
-		{
-			ratioRF = 1;
-		}
+		if (ratioRF < 1) ratioRF = 1;
+		
 		ratioTesla = _config.getInt(
 				"ratioTesla", 
 				_categoryPower, 
@@ -49,10 +47,8 @@ public class VMAConfig
 				1, 
 				Integer.MIN_VALUE, 
 				"Works just like RF ratio. Set how many Tesla power 1 VM tick should be.");
-		if(ratioTesla < 1)
-		{
-			ratioTesla = 1;
-		}
+		if (ratioTesla < 1) ratioTesla = 1;
+		
 		ratioIC2 = _config.getInt(
 				"ratioIC2", 
 				_categoryPower, 
@@ -60,10 +56,8 @@ public class VMAConfig
 				1, 
 				Integer.MAX_VALUE, 
 				"Works just like RF ratio. Used in IC2 and TechReborn.");
-		if(ratioIC2 < 1)
-		{
-			ratioIC2 = 1;
-		}
+		if (ratioIC2 < 1) ratioIC2 = 1;
+		
 		ratioMekanism = _config.getInt(
 				"ratioMekanism", 
 				_categoryPower, 
@@ -71,10 +65,7 @@ public class VMAConfig
 				1, 
 				Integer.MAX_VALUE, 
 				"Works just like RF ratio. Used in Mekanism.");
-		if(ratioMekanism < 1)
-		{
-			ratioMekanism = 1;
-		}
+		if (ratioMekanism < 1) ratioMekanism = 1;
 		
 		// Quarry
 		_config.addCustomCategoryComment(_categoryQuarry, "Options connected with Quarry.");

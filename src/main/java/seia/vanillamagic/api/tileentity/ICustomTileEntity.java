@@ -40,14 +40,23 @@ public interface ICustomTileEntity extends
 	 */
 	void forceChunkLoading(Ticket ticket);
 	
+	/**
+	 * @return Returns the update packet for this CustomTileEntity.
+	 */
 	SPacketUpdateTileEntity getUpdatePacket();
 	
+	/**
+	 * Used to update this CustomTilenEntity.
+	 */
 	void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt);
 	
+	/**
+	 * @return Returns the tag compound which is used to update this CustomTileEntity.
+	 */
 	NBTTagCompound getUpdateTag();
 	
 	/**
-	 * Returns the {@link Ticket} for this CustomTileEntity.
+	 * @return Returns the {@link Ticket} for this CustomTileEntity.
 	 */
 	Ticket getChunkTicket();
 }

@@ -6,12 +6,21 @@ import javax.annotation.Nullable;
 
 import org.apache.logging.log4j.Level;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import seia.vanillamagic.api.VanillaMagicAPI;
 
+/**
+ * Class which is used to manipulate on VM Item Upgrades.
+ */
 public class ItemUpgradeAPI 
 {
+	/**
+	 * ItemUpgradeRegistry Class
+	 */
+	private static final String REGISTRY_CLASS = "seia.vanillamagic.item.itemupgrade.ItemUpgradeRegistry";
+	
 	private ItemUpgradeAPI()
 	{
 	}
@@ -28,7 +37,7 @@ public class ItemUpgradeAPI
 	{
 		try
 		{
-			Class<?> registryClass = Class.forName("seia.vanillamagic.item.itemupgrade.ItemUpgradeRegistry");
+			Class<?> registryClass = Class.forName(REGISTRY_CLASS);
 			Method method = registryClass.getMethod("addUpgradeMapping", String.class, Class.class, String.class);
 			method.invoke(null, mappingName, clazz, localizedName);
 		}
@@ -43,13 +52,14 @@ public class ItemUpgradeAPI
 	 * Add a single value to the mapping. If mapping doesn't exists it will add a new mapping. <br>
 	 * For instance: addItemToMapping("_pickaxe", new MyItemPickaxe()); <br>
 	 * or <br>
-	 * addItemToMapping("_myMapping", new MyItem());
+	 * addItemToMapping("_myMapping", new MyItem()); <br>
+	 * If You want to add Block use {@link Item#getItemFromBlock(Block)}
 	 */
 	public static void addItemToMapping(String mappingName, Item item, String localizedName)
 	{
 		try
 		{
-			Class<?> registryClass = Class.forName("seia.vanillamagic.item.itemupgrade.ItemUpgradeRegistry");
+			Class<?> registryClass = Class.forName(REGISTRY_CLASS);
 			Method method = registryClass.getMethod("addItemToMapping", String.class, Item.class, String.class);
 			method.invoke(null, mappingName, item, localizedName);
 		}
@@ -69,7 +79,7 @@ public class ItemUpgradeAPI
 	{
 		try
 		{
-			Class<?> registryClass = Class.forName("seia.vanillamagic.item.itemupgrade.ItemUpgradeRegistry");
+			Class<?> registryClass = Class.forName(REGISTRY_CLASS);
 			Method method = registryClass.getMethod("addItemMapping", String.class, String.class);
 			method.invoke(null, mappingName, localizedName);
 		}
@@ -83,14 +93,15 @@ public class ItemUpgradeAPI
 	/**
 	 * @param base -> Basic item. For instance: pickaxe
 	 * @param ingredient -> Item needed to upgrade.
-	 * @return ItemStack with upgrade and written NBT data.
+	 * 
+	 * @return Return ItemStack with upgrade and written NBT data.
 	 */
 	@Nullable
 	public static ItemStack getResult(ItemStack base, ItemStack ingredient)
 	{
 		try
 		{
-			Class<?> registryClass = Class.forName("seia.vanillamagic.item.itemupgrade.ItemUpgradeRegistry");
+			Class<?> registryClass = Class.forName(REGISTRY_CLASS);
 			Method method = registryClass.getMethod("getResult", ItemStack.class, ItemStack.class);
 			return (ItemStack) method.invoke(null, base, ingredient);
 		}
@@ -102,11 +113,14 @@ public class ItemUpgradeAPI
 		}
 	}
 	
+	/**
+	 * @return Returns saved Item Upgrade unique name from given ItemStack.
+	 */
 	public static String getMappingNameFromItemStack(ItemStack stack)
 	{
 		try
 		{
-			Class<?> registryClass = Class.forName("seia.vanillamagic.item.itemupgrade.ItemUpgradeRegistry");
+			Class<?> registryClass = Class.forName(REGISTRY_CLASS);
 			Method method = registryClass.getMethod("getMappingNameFromItemStack", ItemStack.class);
 			return (String) method.invoke(null, stack);
 		}

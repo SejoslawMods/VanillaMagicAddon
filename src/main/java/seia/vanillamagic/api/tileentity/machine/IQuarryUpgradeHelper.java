@@ -42,6 +42,7 @@ public interface IQuarryUpgradeHelper
 	
 	/**
 	 * @param upgrade checking QuarryUpgrade
+	 * 
 	 * @return Returns position of the given QuarryUpgrade from the list of all registered upgrades for this Quarry.
 	 */
 	@Nullable
@@ -63,7 +64,7 @@ public interface IQuarryUpgradeHelper
 	void clearUpgrades();
 	
 	/**
-	 * This will add all upgrades to the given list.
+	 * @return This will add all upgrades to the given list.
 	 */
 	List<String> addAdditionalInfo(List<String> baseInfo);
 }

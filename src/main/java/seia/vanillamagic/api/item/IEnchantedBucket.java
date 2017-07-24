@@ -17,7 +17,7 @@ public interface IEnchantedBucket extends ICustomItem
 	public static final String NBT_FLUID_NAME = "NBT_FLUID_NAME";
 	
 	/**
-	 * Fluid which this bucket contains.
+	 * @return Returns fluid which this bucket contains.
 	 */
 	Fluid getFluidInBucket();
 	
@@ -33,7 +33,7 @@ public interface IEnchantedBucket extends ICustomItem
 	}
 	
 	/**
-	 * Crafting ingredient bucket with fluid.
+	 * @return Returns crafting ingredient bucket with fluid.
 	 */
 	@Nullable
 	default public ItemStack getBucket()

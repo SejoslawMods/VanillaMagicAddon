@@ -15,7 +15,7 @@ public interface IItemUpgrade
 	public static final String NBT_ITEM_CONTAINS_UPGRADE = "NBT_ITEM_CONTAINS_UPGRADE";
 	
 	/**
-	 * Returns the "base" stack with all the NBT data written.
+	 * @return Returns the "base" stack with all the NBT data written.
 	 */
 	default ItemStack getResult(ItemStack base)
 	{
@@ -28,41 +28,34 @@ public interface IItemUpgrade
 	}
 	
 	/**
-	 * Ingredient which must be in Cauldron with the required Item.
+	 * @return Returns ingredient which must be in Cauldron with the required Item.
 	 */
 	ItemStack getIngredient();
 	
 	/**
 	 * This tag MUST BE UNIQUE !!! <br>
 	 * It is used to recognize the {@link IItemUpgrade}. 
+	 * 
+	 * @return Returns Upgrade unique tag.
 	 */
 	String getUniqueNBTTag();
 	
 	/**
-	 * Readable name for this upgrade. <br>
+	 * @return Returns readable name for this upgrade. <br>
 	 * It will be used as a part of new stack name. <br>
 	 * For instance: "My Upgrade" or "Awesome Hyper World-Destroying Upgrade".
 	 */
 	String getUpgradeName();
 	
 	/**
-	 * This method is used to check if the given stack is an upgrade.
+	 * @return Returns if the given stack is an upgrade.
 	 */
 	default public boolean containsTag(ItemStack stack)
 	{
-		if(stack == null)
-		{
-			return false;
-		}
-		if(stack.isEmpty())
-		{
-			return false;
-		}
+		if (stack == null) return false;
+		if (stack.isEmpty()) return false;
 		NBTTagCompound tag = stack.getTagCompound();
-		if(tag == null)
-		{
-			return false;
-		}
+		if (tag == null) return false;
 		return tag.getString(NBT_ITEM_UPGRADE_TAG).equals(getUniqueNBTTag());
 	}
 }
